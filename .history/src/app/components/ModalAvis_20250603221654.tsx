@@ -30,45 +30,29 @@ export default function ModalAvis({ userId, onClose }: ModalAvisProps) {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-  const fetchAvis = async () => {
-    try {
-      setLoading(true)
-      setError(null)
+    const fetchAvis = async () => {
+      try {
+        setLoading(true)
+        setError(null)
 
-      const { data, error } = await supabase
-        .from("avis")
-        .select("id, avis, comment, created_at, avis_par:avis_par(nom)")
-        .eq("freelancer_id", userId)
-        .order("created_at", { ascending: false })
+        const { data, error } = await supabase
+          .from("avis")
+          .select("id, avis, comment, created_at, avis_par:avis_par(nom)")
+          .eq("freelancer_id", userId)
+          .order("created_at", { ascending: false })
 
-      if (error) throw error
-
-      const avisFormates: Avis[] = (data || []).map((item: {
-        id: string;
-        avis: number;
-        comment: string | null;
-        created_at: string;
-        avis_par: { nom: string | null }[];
-      }) => ({
-        id: item.id,
-        avis: item.avis,
-        comment: item.comment,
-        created_at: item.created_at,
-        avis_par: item.avis_par?.[0] || null,
-      }))
-
-      setAvis(avisFormates)
-    } catch (err) {
-      setError("Erreur lors du chargement des avis")
-      console.error("Error fetching avis:", err)
-    } finally {
-      setLoading(false)
+        if (error) throw error
+        setAvis(data || [])
+      } catch (err) {
+        setError("Erreur lors du chargement des avis")
+        console.error("Error fetching avis:", err)
+      } finally {
+        setLoading(false)
+      }
     }
-  }
 
-  fetchAvis()
-}, [userId])
-
+    fetchAvis()
+  }, [userId])
 
   const formatDate = (dateString: string) => {
     try {
