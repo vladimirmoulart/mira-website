@@ -25,39 +25,28 @@ export default function ModalAbonnements({ userId, onClose }: ModalAbonnementsPr
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-  const fetchAbonnements = async () => {
-    try {
-      setLoading(true)
-      setError(null)
+    const fetchAbonnements = async () => {
+      try {
+        setLoading(true)
+        setError(null)
 
-      const { data, error } = await supabase
-        .from("abonnements")
-        .select("abonnement_id, abonnement:utilisateurs!abonnement_id(nom, avatar)")
-        .eq("abonne_id", userId)
+        const { data, error } = await supabase
+          .from("abonnements")
+          .select("abonnement_id, abonnement:utilisateurs!abonnement_id(nom, avatar)")
+          .eq("abonne_id", userId)
 
-      if (error) throw error
-
-      // Adaptation au type attendu
-      const abonnementsFormates: Abonnement[] = (data || []).map((item: {
-        abonnement_id: string;
-        abonnement: { nom: string; avatar: string | null }[];
-      }) => ({
-        abonnement_id: item.abonnement_id,
-        abonnement: item.abonnement?.[0] || null,
-      }))
-
-      setAbonnements(abonnementsFormates)
-    } catch (err) {
-      setError("Erreur lors du chargement des abonnements")
-      console.error("Error fetching abonnements:", err)
-    } finally {
-      setLoading(false)
+        if (error) throw error
+        setAbonnements(data || [])
+      } catch (err) {
+        setError("Erreur lors du chargement des abonnements")
+        console.error("Error fetching abonnements:", err)
+      } finally {
+        setLoading(false)
+      }
     }
-  }
 
-  fetchAbonnements()
-}, [userId])
-
+    fetchAbonnements()
+  }, [userId])
 
   const getInitials = (name: string) => {
     return name
