@@ -60,6 +60,7 @@ export default function Navbar({ children }: { children: ReactNode }) {
         {/* Navigation */}
         <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
           {navItems
+            .filter((item) => !item.badge || item.badge === userRole)
             .map((item) => (
               <Link
                 key={item.href}
