@@ -84,8 +84,6 @@ export default function Feed() {
         return { label: "Freelance", color: "bg-[#ffbb88]", icon: User }
       case 2:
         return { label: "Entreprise", color: "bg-[#52c1ff]", icon: Building2 }
-        default:
-      return { label: "Inconnu", color: "bg-gray-400", icon: User }
     }
   }
 
