@@ -25,39 +25,28 @@ export default function ModalAbonnes({ userId, onClose }: ModalAbonnesProps) {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-  const fetchAbonnes = async () => {
-    try {
-      setLoading(true)
-      setError(null)
+    const fetchAbonnes = async () => {
+      try {
+        setLoading(true)
+        setError(null)
 
-      const { data, error } = await supabase
-        .from("abonnements")
-        .select("abonne_id, abonne:utilisateurs!abonne_id(nom, avatar)")
-        .eq("abonnement_id", userId)
+        const { data, error } = await supabase
+          .from("abonnements")
+          .select("abonne_id, abonne:utilisateurs!abonne_id(nom, avatar)")
+          .eq("abonnement_id", userId)
 
-      if (error) throw error
-
-      // 🔁 Adapter le format des données Supabase au type Abonne[]
-      const abonnesFormates: Abonne[] = (data || []).map((item: {
-        abonne_id: string;
-        abonne: { nom: string; avatar: string | null }[];
-      }) => ({
-        abonne_id: item.abonne_id,
-        abonne: item.abonne?.[0] || null, // on prend le premier utilisateur lié
-      }))
-
-      setAbonnes(abonnesFormates)
-    } catch (err) {
-      setError("Erreur lors du chargement des abonnés")
-      console.error("Error fetching abonnés:", err)
-    } finally {
-      setLoading(false)
+        if (error) throw error
+        setAbonnes(data || [])
+      } catch (err) {
+        setError("Erreur lors du chargement des abonnés")
+        console.error("Error fetching abonnés:", err)
+      } finally {
+        setLoading(false)
+      }
     }
-  }
 
-  fetchAbonnes()
-}, [userId])
-
+    fetchAbonnes()
+  }, [userId])
 
   const getInitials = (name: string) => {
     return name
