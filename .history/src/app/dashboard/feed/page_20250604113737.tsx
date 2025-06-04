@@ -125,7 +125,7 @@ export default function Feed() {
           {posts.length > 0 ? (
             <div ref={feedRef} className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
               {posts.map((post, idx) => {
-                const roleInfo = getRoleInfo(post.utilisateurs?.role!)
+                const roleInfo = getRoleInfo(post.utilisateurs?.role)
                 const RoleIcon = roleInfo.icon
                 const avatar = post.utilisateurs?.avatar || "https://randomuser.me/api/portraits/men/32.jpg"
                 const nom = post.utilisateurs?.nom || "Utilisateur inconnu"
