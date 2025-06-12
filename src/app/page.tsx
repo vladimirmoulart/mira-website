@@ -106,7 +106,7 @@ export default function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <div className="bg-gradient-to-br from-slate-50 via-blue-50 to-orange-50 min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
       {/* Navigation */}
       <header className="absolute inset-x-0 top-0 z-50">
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -145,7 +145,7 @@ export default function HomePage() {
             </Link>
             <Link
               href="/inscription"
-              className="rounded-xl bg-[#ffbb88] px-4 py-1 text-sm font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300"
+              className="rounded-xl bg-[#ffbb88] px-4 py-1 text-sm font-semibold text-white shadow-sm hover:shadow-md transition-all duration-300"
             >
               S'inscrire
             </Link>
@@ -156,7 +156,7 @@ export default function HomePage() {
         {mobileMenuOpen && (
           <div className="lg:hidden">
             <div className="fixed inset-0 z-50" />
-            <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white/95 backdrop-blur-xl px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+            <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm border-l border-gray-200">
               <div className="flex items-center justify-between">
                 <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
                   <img className="h-8 w-auto" src="/images/logo-mira.png" alt="MIRA" />
@@ -171,7 +171,7 @@ export default function HomePage() {
                 </button>
               </div>
               <div className="mt-6 flow-root">
-                <div className="-my-6 divide-y divide-gray-500/10">
+                <div className="-my-6 divide-y divide-gray-200">
                   <div className="space-y-2 py-6">
                     {navigation.map((item) => (
                       <a
@@ -192,7 +192,7 @@ export default function HomePage() {
                     </Link>
                     <Link
                       href="/inscription"
-                      className="block rounded-xl bg-gradient-to-r from-[#52c1ff] to-[#ffbb88] px-3 py-2.5 text-base font-semibold text-white text-center"
+                      className="block rounded-xl bg-[#52c1ff] px-3 py-2.5 text-base font-semibold text-white text-center"
                     >
                       S'inscrire
                     </Link>
@@ -206,24 +206,10 @@ export default function HomePage() {
 
       {/* Hero section */}
       <div className="relative isolate px-6 pt-14 lg:px-8">
-        {/* Decorative background */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-        >
-          <div
-            style={{
-              clipPath:
-                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-            }}
-            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#52c1ff] to-[#ffbb88] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-          />
-        </div>
-
         <div className="mx-auto max-w-4xl py-32 sm:py-48 lg:py-36">
           {/* Announcement banner */}
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-            <div className="relative rounded-full px-4 py-2 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20 bg-white/80 backdrop-blur-sm">
+            <div className="relative rounded-full px-4 py-2 text-sm leading-6 text-gray-600 ring-1 ring-gray-300 hover:ring-gray-400 bg-white">
               Besoin d'un renseignement ?{" "}
               <a href="#contact" className="font-semibold text-[#52c1ff] hover:text-[#ffbb88] transition-colors">
                 <span aria-hidden="true" className="absolute inset-0" />
@@ -234,10 +220,7 @@ export default function HomePage() {
 
           <div className="text-center">
             <h1 className="text-5xl font-bold tracking-tight text-balance text-gray-900 sm:text-7xl">
-              Boostez vos projets digitaux avec les{" "}
-              <span className="bg-gradient-to-r from-[#52c1ff] to-[#ffbb88] bg-clip-text text-transparent">
-                talents de demain
-              </span>
+              Boostez vos projets digitaux avec les <span className="text-[#52c1ff]">talents de demain</span>
             </h1>
             <p className="mt-8 text-lg font-medium text-pretty text-gray-600 sm:text-xl/8 max-w-3xl mx-auto">
               MIRA connecte des étudiants en formation dans les métiers du digital avec des entreprises à la recherche
@@ -246,7 +229,7 @@ export default function HomePage() {
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
                 href="/connexion"
-                className="group rounded-xl bg-[#52c1ff] px-6 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
+                className="group rounded-xl bg-[#52c1ff] px-6 py-3 text-sm font-semibold text-white shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-2"
               >
                 Se connecter
                 <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -260,24 +243,10 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-
-        {/* Bottom decorative element */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-        >
-          <div
-            style={{
-              clipPath:
-                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-            }}
-            className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ffbb88] to-[#52c1ff] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-          />
-        </div>
       </div>
 
       {/* Features section */}
-      <div id="features" className="overflow-hidden bg-white/80 backdrop-blur-xl py-24 sm:py-32">
+      <div id="features" className="overflow-hidden bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
             <div className="lg:pt-4 lg:pr-8">
@@ -308,7 +277,7 @@ export default function HomePage() {
                 src="/images/entreprise-etudiant.png"
                 width={2432}
                 height={1442}
-                className="w-[38rem] max-w-none rounded-3xl shadow-2xl ring-1 ring-gray-400/10 sm:w-[49rem] md:-ml-4 lg:-ml-0"
+                className="w-[38rem] max-w-none rounded-xl shadow-lg border border-gray-200 sm:w-[49rem] md:-ml-4 lg:-ml-0"
               />
             </div>
           </div>
@@ -320,22 +289,8 @@ export default function HomePage() {
         <img
           alt=""
           src="/images/banniere-fond.png"
-          className="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center brightness-[0.35]"
+          className="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center opacity-30"
         />
-
-        {/* Decorative elements */}
-        <div
-          aria-hidden="true"
-          className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
-        >
-          <div
-            style={{
-              clipPath:
-                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-            }}
-            className="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#52c1ff] to-[#ffbb88] opacity-20"
-          />
-        </div>
 
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
@@ -353,7 +308,7 @@ export default function HomePage() {
             {stats.map((stat) => (
               <div
                 key={stat.name}
-                className="flex flex-col-reverse gap-1 bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300"
+                className="flex flex-col-reverse gap-1 bg-white/10 rounded-xl p-6 hover:bg-white/20 transition-all duration-300 border border-white/20"
               >
                 <dt className="text-base leading-7 text-gray-300 flex items-center gap-2">
                   <stat.icon className="w-5 h-5 text-[#52c1ff]" />
@@ -368,13 +323,13 @@ export default function HomePage() {
           <div className="mt-16 flex flex-col sm:flex-row gap-4">
             <Link
               href="/inscription"
-              className="rounded-xl bg-[#52c1ff] px-6 py-3 text-base font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300 text-center"
+              className="rounded-xl bg-[#52c1ff] px-6 py-3 text-base font-semibold text-white shadow-sm hover:shadow-md transition-all duration-300 text-center"
             >
               Rejoindre la communauté
             </Link>
             <Link
               href="#contact"
-              className="rounded-xl bg-white/10 backdrop-blur-sm px-6 py-3 text-base font-semibold text-white hover:bg-white/20 transition-all duration-300 text-center border border-white/20"
+              className="rounded-xl bg-white/10 px-6 py-3 text-base font-semibold text-white hover:bg-white/20 transition-all duration-300 text-center border border-white/20"
             >
               En savoir plus
             </Link>
@@ -383,7 +338,7 @@ export default function HomePage() {
       </div>
 
       {/* Testimonials section */}
-      <div id="testimonials" className="bg-white/80 backdrop-blur-xl py-24 sm:py-32">
+      <div id="testimonials" className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
             <h2 className="text-4xl font-bold tracking-tight text-pretty text-gray-900 sm:text-5xl">
@@ -397,7 +352,7 @@ export default function HomePage() {
             {posts.map((post) => (
               <article
                 key={post.id}
-                className="flex max-w-xl flex-col items-start justify-between bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/20"
+                className="flex max-w-xl flex-col items-start justify-between bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200"
               >
                 <div className="flex items-center gap-x-4 text-xs">
                   <time dateTime={post.datetime} className="text-gray-500">
@@ -406,8 +361,8 @@ export default function HomePage() {
                   <span
                     className={`relative z-10 rounded-full px-3 py-1.5 font-medium ${
                       post.category.title === "Étudiant"
-                        ? "bg-[#52c1ff]/20 text-[#52c1ff] hover:bg-[#52c1ff]/30"
-                        : "bg-[#ffbb88]/20 text-[#ffbb88] hover:bg-[#ffbb88]/30"
+                        ? "bg-[#52c1ff]/10 text-[#52c1ff]"
+                        : "bg-[#ffbb88]/10 text-[#ffbb88]"
                     }`}
                   >
                     {post.category.title}
@@ -466,7 +421,7 @@ export default function HomePage() {
                 La plateforme qui connecte les talents de demain avec les entreprises d'aujourd'hui.
               </p>
             </div>
-            <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+            <div className="mt-16 grid grid-cols-3 gap-8 xl:col-span-2 xl:mt-0">
               <div>
                 <h3 className="text-sm font-semibold leading-6 text-white">Plateforme</h3>
                 <ul role="list" className="mt-6 space-y-4">
@@ -494,6 +449,29 @@ export default function HomePage() {
                     <a href="#" className="text-sm leading-6 text-gray-300 hover:text-white">
                       Contact
                     </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold leading-6 text-white">Légal</h3>
+                <ul role="list" className="mt-6 space-y-4">
+                  <li>
+                    <Link
+                      href="/legals/politique-confidentialite"
+                      className="text-sm leading-6 text-gray-300 hover:text-white"
+                    >
+                      Politique de confidentialité
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/legals/mentions-legales" className="text-sm leading-6 text-gray-300 hover:text-white">
+                      Mentions légales
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/legals/cgu" className="text-sm leading-6 text-gray-300 hover:text-white">
+                      CGU
+                    </Link>
                   </li>
                 </ul>
               </div>
