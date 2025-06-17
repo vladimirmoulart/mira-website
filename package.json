@@ -28,9 +28,7 @@
     "ws": "^8.18.1"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.27.2",
-    "@babel/preset-react": "^7.27.1",
-    "@babel/preset-typescript": "^7.27.1",
+    "@tailwindcss/postcss": "^4.1.10",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -39,20 +37,12 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
-    "babel-jest": "^29.7.0",
     "jest": "^30.0.0",
     "jest-environment-jsdom": "^30.0.0",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.7",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.10",
     "ts-jest": "^29.4.0",
     "typescript": "^5"
   },
-  "type": "module",
-  "babel": {
-    "presets": [
-      "next/babel",
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ]
-  }
+  "type": "module"
 }

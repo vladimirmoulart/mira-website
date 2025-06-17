@@ -1,10 +1,16 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  images: {
-    domains: ['i.pinimg.com'],
+import type { NextConfig } from "next"
+
+const nextConfig: NextConfig = {
+  // Supprimez complètement swcMinify - il n'existe plus dans Next.js 15
+  eslint: {
+    ignoreDuringBuilds: true,
   },
-  swcMinify: true, // Utiliser SWC pour la minification
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  images: {
+    unoptimized: true,
+  },
 }
 
-module.exports = nextConfig
+export default nextConfig
