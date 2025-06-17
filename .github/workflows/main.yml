@@ -1,0 +1,51 @@
+name: CI/CD Pipeline
+
+# Déclenche l'action à chaque push sur la branche 'main'
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Utilisation d'une machine Ubuntu
+
+    steps:
+    # Vérifie le code depuis le repository
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Installe Node.js (si tu utilises Node.js, adapte selon ton besoin)
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # spécifie la version de Node.js
+
+    # Installe les dépendances
+    - name: Install dependencies
+      run: npm install
+
+    # Lance les tests
+    - name: Run tests
+      run: npm test
+
+    # Build l'application
+    - name: Build the app
+      run: npm run build
+
+  deploy:
+    needs: build  # L'action de déploiement se lance après le succès de la première étape 'build'
+    runs-on: ubuntu-latest
+
+    steps:
+      # Vérifie de nouveau le code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Déploie sur Vercel (ou autre plateforme)
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel_token: ${{ secrets.VERCEL_TOKEN }}
+          vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel_user_id: ${{ secrets.VERCEL_USER_ID }}
