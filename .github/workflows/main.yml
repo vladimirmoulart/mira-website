@@ -53,5 +53,5 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
         env:
-        NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        NEXT-PUBLIC-SUPABASE-URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+        NEXT-PUBLIC-SUPABASE-ANON-KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
