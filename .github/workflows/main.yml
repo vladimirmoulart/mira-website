@@ -32,6 +32,9 @@ jobs:
     # Build l'application
     - name: Build the app
       run: npm run build
+      env:
+        NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
   deploy:
     needs: build  # L'action de déploiement se lance après le succès de la première étape 'build'
