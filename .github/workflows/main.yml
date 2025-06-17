@@ -1,58 +1,46 @@
-name: CI/CD Pipeline
+name: CI/CD Pipeline with Retry
 
-# Déclenche l'action à chaque push sur la branche 'main'
 on:
   push:
     branches:
       - master
 
 jobs:
-  build:
-    runs-on: ubuntu-latest  # Utilisation d'une machine Ubuntu
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
     steps:
-    # Vérifie le code depuis le repository
     - name: Checkout code
       uses: actions/checkout@v4
 
-    # Installe Node.js (si tu utilises Node.js, adapte selon ton besoin)
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'  # spécifie la version de Node.js
+        node-version: '18'
         cache: 'npm'
 
-    # Installe les dépendances
     - name: Install dependencies
       run: npm ci
 
-    # Lance les tests
     - name: Run tests
       run: npm test
 
-    # Build l'application
     - name: Build the app
       run: npm run build
       env:
         NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
         NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
-  deploy:
-    needs: build  # L'action de déploiement se lance après le succès de la première étape 'build'
-    runs-on: ubuntu-latest
-
-    steps:
-      # Vérifie de nouveau le code
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # Déploie sur Vercel (ou autre plateforme)
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+    - name: Deploy to Vercel (with retry)
+      uses: nick-invision/retry@v2
+      with:
+        timeout_minutes: 10
+        max_attempts: 3
+        retry_wait_seconds: 30
+        command: |
+          npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
+      env:
+        VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+        VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
