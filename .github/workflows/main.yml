@@ -13,17 +13,18 @@ jobs:
     steps:
     # Vérifie le code depuis le repository
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     # Installe Node.js (si tu utilises Node.js, adapte selon ton besoin)
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
-        node-version: '22'  # spécifie la version de Node.js
+        node-version: '18'  # spécifie la version de Node.js
+        cache: 'npm'
 
     # Installe les dépendances
     - name: Install dependencies
-      run: npm install
+      run: npm ci
 
     # Lance les tests
     - name: Run tests
@@ -43,15 +44,15 @@ jobs:
     steps:
       # Vérifie de nouveau le code
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # Déploie sur Vercel (ou autre plateforme)
       - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v20
+        uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
         env:
-        NEXT-PUBLIC-SUPABASE-URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-        NEXT-PUBLIC-SUPABASE-ANON-KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
