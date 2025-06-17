@@ -99,6 +99,8 @@ export default function ProfilPage() {
               .select("*")
               .eq("utilisateur_id", userData.id)
               .order("created_at", { ascending: false })
+
+              
             setPosts(postsData || [])
 
             const { count: abonnés } = await supabase

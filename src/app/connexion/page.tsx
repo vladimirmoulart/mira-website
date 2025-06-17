@@ -23,22 +23,24 @@ export default function Connexion() {
     setIsLoading(true)
 
     try {
+      // Tentative de connexion avec l'email et le mot de passe
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       })
-
+    // Si une erreur survient (identifiants incorrects, etc.)
       if (error) {
         setErrorMessage(error.message)
         return
       }
-
+    // Si la connexion est réussie
       setSuccessMessage("Connexion réussie ! Redirection...")
-
+    // Redirection vers le fil d'actualié 
       setTimeout(() => {
         window.location.href = "/dashboard/feed"
-      }, 1500)
+      }, 1000)
     } catch (error) {
+    // Gestion des erreurs inattendues
       setErrorMessage("Une erreur inattendue s'est produite. Veuillez réessayer.")
       console.error("Login error:", error)
     } finally {
@@ -67,7 +69,7 @@ export default function Connexion() {
             Connexion
           </h2>
 
-          {/* Status messages */}
+          {/*  des erreurs et de succès */}
           {successMessage && (
             <div className="mb-6 p-4 bg-green-50 rounded-lg flex items-center gap-3 border border-green-200">
               <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />

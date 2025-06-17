@@ -36,6 +36,8 @@ export default function ChatRoom({ missionId, currentUserId }: ChatRoomProps) {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
+
+        
         const { data, error } = await supabase
           .from("messages")
           .select("*, utilisateurs(id, nom, avatar, role)")
@@ -210,11 +212,10 @@ export default function ChatRoom({ missionId, currentUserId }: ChatRoomProps) {
             const nom = msg.utilisateurs?.nom || "Utilisateur"
             const role = msg.utilisateurs?.role
             const showAvatar = idx === 0 || messages[idx - 1].id_utilisateur !== msg.id_utilisateur
-
+            {/* Mise en forme */}
             return (
               <div key={msg.id} className={`flex ${isMe ? "justify-end" : "justify-start"} group`}>
                 <div className={`flex gap-3 max-w-[70%] ${isMe ? "flex-row-reverse" : "flex-row"}`}>
-                  {/* Avatar */}
                   <div className={`flex-shrink-0 ${showAvatar ? "opacity-100" : "opacity-0"}`}>
                     <img
                       src={avatar || "/placeholder.svg"}

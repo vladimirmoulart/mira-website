@@ -124,7 +124,9 @@ export default function RechercherMission() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data: missionsData, error: missionsError } = await supabase.from("missions").select("*")
+        const { data: missionsData, error: missionsError } = await supabase
+          .from("missions")
+          .select("*")
         if (missionsError) {
           console.error("Erreur de récupération des missions :", missionsError)
           showNotification("Erreur lors du chargement des missions", "error")

@@ -4,6 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { supabase } from "../../../lib/supabaseClient"
+import bcrypt from "bcryptjs"
 import {
   CheckCircle,
   AlertCircle,
@@ -33,13 +34,14 @@ export default function Inscription() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const handleRegister = async () => {
+  // Vérification si les mots de passe correspondent
     if (password !== confirmPassword) {
       setErrorMessage("Les mots de passe ne correspondent pas.")
       return
     }
-
-    if (password.length < 6) {
-      setErrorMessage("Le mot de passe doit contenir au moins 6 caractères.")
+  // Vérification de la longueur du mot de passe
+    if (password.length < 12) {
+      setErrorMessage("Le mot de passe doit contenir au moins 12 caractères.")
       return
     }
 
@@ -47,7 +49,10 @@ export default function Inscription() {
     setIsLoading(true)
 
     try {
-      const { data, error } = await supabase.auth.signUp({ email, password })
+    //hashage du mot de passe
+      const hashedPassword = await bcrypt.hash(password, 10);
+    // Création du compte dans Supabase
+      const { data, error } = await supabase.auth.signUp({ email, password: hashedPassword });
 
       if (error) {
         setErrorMessage(error.message)
@@ -59,13 +64,13 @@ export default function Inscription() {
         setErrorMessage("Erreur lors de la création du compte.")
         return
       }
-
+    // Insertion des informations dans la base de données utilisateur
       const { error: dbError } = await supabase.from("utilisateurs").insert([
         {
           id: user.id,
           nom,
           email,
-          mot_de_passe: password, // Note: storing passwords in plaintext is not recommended
+          mot_de_passe: hashedPassword,
           role: Number.parseInt(role),
         },
       ])
@@ -75,10 +80,13 @@ export default function Inscription() {
         return
       }
 
+      //message de succès et redirection vers la connexion
       setSuccessMessage("Inscription réussie ! Redirection...")
       setTimeout(() => {
         window.location.href = "/connexion"
       }, 2000)
+
+
     } catch (error) {
       setErrorMessage("Une erreur inattendue s'est produite. Veuillez réessayer.")
       console.error("Registration error:", error)
@@ -87,6 +95,7 @@ export default function Inscription() {
     }
   }
 
+  //les différentes étapes de l'inscription 
   const getStepTitle = () => {
     switch (step) {
       case 1:
